@@ -107,11 +107,10 @@ def read_route(filename):
         return imported_points
 
 # Fly route with specified flight function (navigate, set_position or reach_point). Copter needs to be armed.
-def fly_route(route, delay = 0.1, z = float('nan'), speed=SPEED, frame_id=FRAME_ID, flight_function=reach_point):        
+def fly_route(route, delay = 0.1, z = float('nan'), speed=SPEED, frame_id=LOCAL_FRAME_ID, flight_function=reach_point):        
     for point in route:
-        if math.isnan(z):
-            z_result = point['z']
-        else:
+        z_result = point['z']
+        if not math.isnan(z):
             z_result = z
-        flight_function(x=point['x'], y=point['y'], z=z_result, speed=speed)
+        flight_function(x=point['x'], y=point['y'], z=z_result, speed=speed, frame_id=frame_id)
         time.sleep(delay)
