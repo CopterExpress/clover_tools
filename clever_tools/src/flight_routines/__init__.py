@@ -29,14 +29,11 @@ TOLERANCE = 0.2             # m
 SPEED = 1.0                 # m/s
 TAKEOFF_SPEED = 1.0         # m/s
 TAKEOFF_HEIGHT = 1.0        # m
-TIMEOUT = 5.0               # s
-TIMEOUT_ARMED = 2.0         # s
 FLIP_MIN_HEIGHT = 2.0       # m
 LOCAL_FRAME_ID = 'map'
 COPTER_FRAME_ID = 'body'
-INTERRUPTER = threading.Event()
 
-# Get distance betwwen 2 points
+# Get distance betwen 2 points
 def get_distance(x1, y1, z1, x2, y2, z2):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2 + (z1 - z2) ** 2)
 
@@ -73,18 +70,23 @@ def reach_point(x, y, z, yaw=float('nan'), speed=SPEED, tolerance=TOLERANCE, fra
 def create_route(filename, add_trigger, stop_trigger, frame_id=LOCAL_FRAME_ID):
     csv_file = open(filename, mode='w+')
     rospy.loginfo('Open file {} for writing route'.format(filename))
+    rate = rospy.Rate(FREQUENCY)
     with csv_file:
         csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         while not stop_trigger.is_set():
             while not add_trigger.is_set():
                 if stop_trigger.is_set():
-                    break
+                    rospy.loginfo('Route {} is created'.format(filename))
+                    return
+                rate.sleep()
             telem = get_telemetry(frame_id=frame_id)
             csv_writer.writerow([telem.x, telem.y, telem.z])
             rospy.loginfo('Add point {:.3f}, {:.3f}, {:.3f} to {}'.format(telem.x, telem.y, telem.z, filename))
             while add_trigger.is_set():
                 if stop_trigger.is_set():
-                    break
+                    rospy.loginfo('Route {} is created'.format(filename))
+                    return
+                rate.sleep()
     rospy.loginfo('Route {} is created'.format(filename))
 
 # Read array of points from csv file
