@@ -78,6 +78,30 @@ Just example node of flight: takeoff to 1m, fly forward 1m, and land.
 
 ### flight_routines
 
+#### Usage example
+
+```
+import rospy
+from flight_routines import *
+
+rospy.init_node('flight routines node')
+
+# copter parameters
+
+speed = 1
+z = 1
+frame = 'map'
+x0 = get_telemetry(frame_id = frame).x
+y0 = get_telemetry(frame_id = frame).y
+
+# flight program
+
+takeoff(z)                                                  # takeoff
+reach_point(x=x0, y=y0+1, z=z, speed=speed, frame_id=frame) # flight 1m toward
+land()
+```
+
+
 #### Globals
 
 ```bash
