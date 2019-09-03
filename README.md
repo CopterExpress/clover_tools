@@ -82,7 +82,7 @@ Just example node of flight: takeoff to 1m, fly forward 1m, and land.
 
 ```
 import rospy
-from flight_routines import *
+from flight_routines import takeoff, land, reach_point
 
 rospy.init_node('flight routines node')
 
