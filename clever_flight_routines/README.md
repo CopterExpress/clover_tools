@@ -1,6 +1,6 @@
 # clever_flight_routines
 
-ROS package and python module which simplifies the usage of [simple_offboard](https://clever.copterexpress.com/ru/simple_offboard.html)
+ROS package and python module which simplifies the usage of [simple_offboard](https://clever.copterexpress.com/ru/simple_offboard.html).
 
 ## Python module API description
 
@@ -16,7 +16,7 @@ LOCAL_FRAME_ID = 'map'
 
 ### Service proxies
 
-Most services described [here](https://clever.copterexpress.com/ru/simple_offboard.html)
+Most services described [here](https://clever.copterexpress.com/ru/simple_offboard.html).
 
 * `navigate` to service `/navigate`
 * `navigate_global` to service `/navigate_global`
@@ -37,7 +37,7 @@ Return distance betwen 2 points: `(x1,y1,z1)` and `(x2,y2,z2)`.
 
 Arguments:
 
-* x1, y1, z1, x2, y2, z2 - coordinates in the same metric system
+* `x1`, `y1`, `z1`, `x2`, `y2`, `z2` - coordinates in the same metric system.
 
 #### takeoff
 
