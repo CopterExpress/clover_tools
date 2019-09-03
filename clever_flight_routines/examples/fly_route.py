@@ -40,3 +40,4 @@ if __name__ == "__main__":
     while args.repeat:
         fly_route(route=route, z=args.height, speed=args.speed, frame_id=args.frame_id)
     land()
+    
