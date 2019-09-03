@@ -29,7 +29,6 @@ TOLERANCE = 0.2             # m
 SPEED = 1.0                 # m/s
 TAKEOFF_SPEED = 1.0         # m/s
 TAKEOFF_HEIGHT = 1.0        # m
-FLIP_MIN_HEIGHT = 2.0       # m
 LOCAL_FRAME_ID = 'map'
 COPTER_FRAME_ID = 'body'
 
@@ -109,7 +108,7 @@ def read_route(filename):
         return imported_points
 
 # Fly route with specified flight function (navigate, set_position or reach_point). Copter needs to be armed.
-def fly_route(route, delay = 0.1, z = float('nan'), speed=SPEED, frame_id=LOCAL_FRAME_ID, flight_function=reach_point):        
+def fly_route(route, flight_function=reach_point, z = float('nan'), delay = 0.1, speed=SPEED, frame_id=LOCAL_FRAME_ID):        
     for point in route:
         z_result = point['z']
         if not math.isnan(z):

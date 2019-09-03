@@ -105,12 +105,10 @@ land()
 #### Globals
 
 ```bash
-FREQUENCY = 10              # hz
 TOLERANCE = 0.2             # m
 SPEED = 1.0                 # m/s
 TAKEOFF_SPEED = 1.0         # m/s
 TAKEOFF_HEIGHT = 1.0        # m
-FLIP_MIN_HEIGHT = 2.0       # m
 LOCAL_FRAME_ID = 'map'
 COPTER_FRAME_ID = 'body'
 ```
@@ -121,7 +119,7 @@ COPTER_FRAME_ID = 'body'
 get_distance(x1, y1, z1, x2, y2, z2)
 ```
 
-Get distance betwen 2 points: `(x1,y1,z1)` and `(x2,y2,z2)`.
+Return distance betwen 2 points: `(x1,y1,z1)` and `(x2,y2,z2)`.
 
 ```bash
 takeoff(height=TAKEOFF_HEIGHT, speed=TAKEOFF_SPEED, tolerance=TOLERANCE, frame_id=LOCAL_FRAME_ID)
@@ -129,7 +127,7 @@ takeoff(height=TAKEOFF_HEIGHT, speed=TAKEOFF_SPEED, tolerance=TOLERANCE, frame_i
 
 Takeoff to specified height.  
 Arguments:  
-* `height` - takeoff height.  
+* `height` - takeoff height in m.  
 * `speed` - copter vertical speed in m/s.  
 * `tolerance` - tolerance of reaching height in m.  
 * `frame_id` - copter will takeoff relative to this frame id.
@@ -138,7 +136,7 @@ Arguments:
 reach_point(x, y, z, yaw=float('nan'), speed=SPEED, tolerance=TOLERANCE, frame_id=LOCAL_FRAME_ID)
 ```
 
-Reach specified point. Copter needs to be armed. Heading will be the same if `yaw`=`float('nan')`.  
+Reach specified point. Copter needs to be armed. Heading will be the same as initial if `yaw`=`float('nan')`.  
 Arguments:  
 * `x`, `y`, `z` - coordinates in m.  
 * `yaw` - copter heading in radians.  
@@ -150,7 +148,7 @@ Arguments:
 create_route(filename, add_trigger, stop_trigger, frame_id=LOCAL_FRAME_ID)
 ```
 
-Create route file.  
+Create route file in .csv format with sequence of points with `x`, `y`, `z` coordinates.  
 Arguments:  
 * `filename` - file name of the route.  
 * `add_trigger` and `stop_trigger` - external controlled `threading.Event` variables for add point and end creating operations.  
@@ -163,16 +161,16 @@ read_route(filename)
 Read route file. Return array of points. Each point is a dictionary: `{'x': float(x),'y': float(y),'z': float(z)}`.
 
 ```bash
-fly_route(route, delay = 0.1, z = float('nan'), speed=SPEED, frame_id=LOCAL_FRAME_ID, flight_function=reach_point)
+def fly_route(route, flight_function=reach_point, z = float('nan'), delay = 0.1, speed=SPEED, frame_id=LOCAL_FRAME_ID)
 ```
 
 Fly the route.  
 Arguments:  
-* `route` - array of points, each point is a dictionary: `{'x': float(x),'y': float(y),'z': float(z)}`.  
-* `delay` - delay between flying to points in seconds.  
-* `z` - specified height of flight in m. If `z` is `float('nan')` then the height will be `['z']` value in each point.  
+* `route` - array of points, each point is a dictionary: `{'x': float(x),'y': float(y),'z': float(z)}`.
+* `flight_function` - function that is used to fly to point. Variants are: `navigate`, `set_position` or `reach_point`.
+* `z` - specified height of flight in m. If `z` is `float('nan')` then the height will be `['z']` value in each point. 
+* `delay` - delay between flying to points in s. Useful with `navigate` or `set_position` flight sunctions.  
 * `speed` - speed of flight in m/s.  
-* `frame_id` - copter will fly to point relative to this frame id.  
-* `flight_function` - function that is used to fly to point. Variants are: navigate, set_position or reach_point.
+* `frame_id` - copter will fly to point relative to this frame.
 
 
