@@ -14,12 +14,15 @@ from std_srvs.srv import Trigger
 
 # Create proxies to services
 navigate = rospy.ServiceProxy('/navigate', srv.Navigate)
+navigate_global = rospy.ServiceProxy('/navigate_global', srv.NavigateGlobal)
 set_position = rospy.ServiceProxy('/set_position', srv.SetPosition)
+set_velocity = rospy.ServiceProxy('/set_velocity', srv.SetVelocity)
+set_attitude = rospy.ServiceProxy('/set_attitude', srv.SetAttitude)
 set_rates = rospy.ServiceProxy('/set_rates', srv.SetRates)
-set_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
-get_telemetry = rospy.ServiceProxy('get_telemetry', srv.GetTelemetry)
-arming = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
+get_telemetry = rospy.ServiceProxy('/get_telemetry', srv.GetTelemetry)
 land = rospy.ServiceProxy('/land', Trigger)
+arming = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
+set_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
 
 rospy.loginfo("Proxy services inited")
 

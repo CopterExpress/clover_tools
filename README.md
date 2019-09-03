@@ -110,8 +110,21 @@ SPEED = 1.0                 # m/s
 TAKEOFF_SPEED = 1.0         # m/s
 TAKEOFF_HEIGHT = 1.0        # m
 LOCAL_FRAME_ID = 'map'
-COPTER_FRAME_ID = 'body'
 ```
+
+#### Service proxies
+
+Available proxies to services:
+* `navigate` to service `/navigate`
+* `navigate_global` to service `/navigate_global`
+* `set_position` to service `/set_position`
+* `set_velocity` to service `/set_velocity`
+* `set_attitude` to service `/set_attitude`
+* `set_rates` to service `/set_rates`
+* `get_telemetry` to service `get_telemetry`
+* `land` to service `/land`
+* `arming` to service `/mavros/cmd/arming`
+* `set_mode` to service `/mavros/set_mode`
 
 #### Functions
 
