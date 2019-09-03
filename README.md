@@ -114,7 +114,8 @@ LOCAL_FRAME_ID = 'map'
 
 #### Service proxies
 
-Available proxies to services:
+Most services described [here](https://clever.copterexpress.com/ru/simple_offboard.html)
+
 * `navigate` to service `/navigate`
 * `navigate_global` to service `/navigate_global`
 * `set_position` to service `/set_position`
