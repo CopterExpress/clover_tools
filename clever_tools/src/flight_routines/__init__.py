@@ -24,7 +24,7 @@ land = rospy.ServiceProxy('/land', Trigger)
 arming = rospy.ServiceProxy('/mavros/cmd/arming', CommandBool)
 set_mode = rospy.ServiceProxy('/mavros/set_mode', SetMode)
 
-rospy.loginfo("Proxy services inited")
+rospy.logdebug("Proxy services inited")
 
 # Globals
 FREQUENCY = 10              # hz
@@ -46,25 +46,25 @@ def takeoff(height=TAKEOFF_HEIGHT, speed=TAKEOFF_SPEED, tolerance=TOLERANCE, fra
     start = get_telemetry(frame_id=frame_id)
     climb = 0.
     result = navigate(x=start.x, y=start.y, z=start.z+height, speed=speed, yaw=float('nan'), frame_id=frame_id, auto_arm=True)
-    rospy.loginfo(result)
+    rospy.logdebug(result)
     while abs(climb - height) > tolerance:
         climb = abs(get_telemetry(frame_id=frame_id).z - start.z)
-        rospy.loginfo("Takeoff to {:.2f} of {:.2f} meters".format(climb, height))
+        rospy.logdebug("Takeoff to {:.2f} of {:.2f} meters".format(climb, height))
         rate.sleep()
     rospy.loginfo("Takeoff succeeded!")
 
 # Reach specified point. Copter needs to be armed.
 def reach_point(x, y, z, yaw=float('nan'), speed=SPEED, tolerance=TOLERANCE, frame_id=LOCAL_FRAME_ID):
-    rospy.loginfo("Reaching point...")
+    rospy.loginfo("Reaching point {:.2f} {:.2f} {:.2f}".format(x, y, z))
     rate = rospy.Rate(FREQUENCY)
     telem = get_telemetry(frame_id=frame_id)
     result = navigate(x=x, y=y, z=z, yaw=yaw, speed=speed, frame_id=frame_id)
-    rospy.loginfo(result)
+    rospy.logdebug(result)
     delta = get_distance(x, y, z, telem.x, telem.y, telem.z)
     while delta > tolerance:
         telem = get_telemetry(frame_id=frame_id)
         delta = get_distance(x, y, z, telem.x, telem.y, telem.z)
-        rospy.loginfo("Distance remaining: {:.2f} m".format(delta))
+        rospy.logdebug("Distance remaining: {:.2f} m".format(delta))
         rate.sleep()
     rospy.loginfo("Point reached!")
 
