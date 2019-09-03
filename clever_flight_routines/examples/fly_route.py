@@ -1,16 +1,11 @@
 #!/usr/bin/env python
-import threading
 import argparse
 import rospy
 import math
 from mavros_msgs.msg import RCIn
-from flight_routines import *
+from clever_flight_routines import read_route, takeoff, fly_route, land
 
 rospy.init_node('fly_route')
-
-# copter parameters
-
-speed = 1
 
 if __name__ == "__main__":
     

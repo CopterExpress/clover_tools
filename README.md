@@ -11,16 +11,27 @@ cd ~/catkin_ws/src
 git clone https://github.com/CopterExpress/clever_tools.git
 ```
 
-Execute catkin_make in catkin workspace directory:
+Execute catkin_make in catkin workspace directory and source environment setup files:
 
 ```bash
 cd ~/catkin_ws
-catkin_make clever_tools
+catkin_make
+source devel/setup.bash
 ```
 
-## Nodes
+If you don't want to install all packages in catkin workspace, you can install specified package:
 
-### interactive.py
+```bash
+cd ~/catkin_ws
+catkin_make --pkg <package_name>
+source devel/setup.bash
+```
+
+## clever_tools package
+
+### Nodes
+
+#### interactive.py
 
 Control the drone using [interactive markers](http://wiki.ros.org/interactive_markers) in Rviz!
 
@@ -28,7 +39,11 @@ Control the drone using [interactive markers](http://wiki.ros.org/interactive_ma
 rosrun clever_tools interactive.py
 ```
 
-### create_route.py
+## clever_flight_routines package
+
+### Nodes
+
+#### create_route.py
 
 Create flying route by moving drone in space and recording its coordinates by triggering RC pitch stick (channel 2).
 
@@ -45,7 +60,7 @@ optional arguments:
                         parameter. Default is map.
 ```
 
-### fly_route.py
+#### fly_route.py
 
 Fly route from the csv table with x y z values.
 
@@ -70,121 +85,28 @@ optional arguments:
                         Copter speed. Default is 1 m/s.
 ```
 
-### test_flight.py
+#### test_flight.py
 
 Just example node of flight: takeoff to 1m, fly forward 1m, and land.
 
-## Python modules
-
-### flight_routines
+### Python module
 
 #### Usage example
 
 ```
 import rospy
-from flight_routines import takeoff, land, reach_point
+from clever_flight_routines import takeoff, land, reach_point
 
 rospy.init_node('flight routines node')
 
-# copter parameters
-
-speed = 1
-z = 1
-frame = 'map'
-x0 = get_telemetry(frame_id = frame).x
-y0 = get_telemetry(frame_id = frame).y
-
 # flight program
 
-takeoff(z)                                                  # takeoff
-reach_point(x=x0, y=y0+1, z=z, speed=speed, frame_id=frame) # flight 1m toward
+takeoff(1)                         # takeoff to 1m
+reach_point(y=1, frame_id='body')  # flight 1m toward
 land()
 ```
 
+#### Documentation
 
-#### Globals
-
-```bash
-TOLERANCE = 0.2             # m
-SPEED = 1.0                 # m/s
-TAKEOFF_SPEED = 1.0         # m/s
-TAKEOFF_HEIGHT = 1.0        # m
-LOCAL_FRAME_ID = 'map'
-```
-
-#### Service proxies
-
-Most services described [here](https://clever.copterexpress.com/ru/simple_offboard.html)
-
-* `navigate` to service `/navigate`
-* `navigate_global` to service `/navigate_global`
-* `set_position` to service `/set_position`
-* `set_velocity` to service `/set_velocity`
-* `set_attitude` to service `/set_attitude`
-* `set_rates` to service `/set_rates`
-* `get_telemetry` to service `get_telemetry`
-* `land` to service `/land`
-* `arming` to service `/mavros/cmd/arming`
-* `set_mode` to service `/mavros/set_mode`
-
-#### Functions
-
-```bash
-get_distance(x1, y1, z1, x2, y2, z2)
-```
-
-Return distance betwen 2 points: `(x1,y1,z1)` and `(x2,y2,z2)`.
-
-```bash
-takeoff(height=TAKEOFF_HEIGHT, speed=TAKEOFF_SPEED, tolerance=TOLERANCE, frame_id=LOCAL_FRAME_ID)
-```
-
-Takeoff to specified height.  
-Arguments:  
-* `height` - takeoff height in m.  
-* `speed` - copter vertical speed in m/s.  
-* `tolerance` - tolerance of reaching height in m.  
-* `frame_id` - copter will takeoff relative to this frame id.
-
-```bash
-reach_point(x, y, z, yaw=float('nan'), speed=SPEED, tolerance=TOLERANCE, frame_id=LOCAL_FRAME_ID)
-```
-
-Reach specified point. Copter needs to be armed. Heading will be the same as initial if `yaw`=`float('nan')`.  
-Arguments:  
-* `x`, `y`, `z` - coordinates in m.  
-* `yaw` - copter heading in radians.  
-* `speed` - copter speed in m/s.  
-* `tolerance` - tolerance of reaching point in m.  
-* `frame_id` - copter will fly to point relative to this frame id.
-
-```bash
-create_route(filename, add_trigger, stop_trigger, frame_id=LOCAL_FRAME_ID)
-```
-
-Create route file in .csv format with sequence of points with `x`, `y`, `z` coordinates.  
-Arguments:  
-* `filename` - file name of the route.  
-* `add_trigger` and `stop_trigger` - external controlled `threading.Event` variables for add point and end creating operations.  
-* `frame_id` - coordinates will be recorded relative to this frame.
-
-```bash
-read_route(filename)
-```
-
-Read route file. Return array of points. Each point is a dictionary: `{'x': float(x),'y': float(y),'z': float(z)}`.
-
-```bash
-def fly_route(route, flight_function=reach_point, z = float('nan'), delay = 0.1, speed=SPEED, frame_id=LOCAL_FRAME_ID)
-```
-
-Fly the route.  
-Arguments:  
-* `route` - array of points, each point is a dictionary: `{'x': float(x),'y': float(y),'z': float(z)}`.
-* `flight_function` - function that is used to fly to point. Variants are: `navigate`, `set_position` or `reach_point`.
-* `z` - specified height of flight in m. If `z` is `float('nan')` then the height will be `['z']` value in each point. 
-* `delay` - delay between flying to points in s. Useful with `navigate` or `set_position` flight sunctions.  
-* `speed` - speed of flight in m/s.  
-* `frame_id` - copter will fly to point relative to this frame.
-
+Documentation can be found [here](clever_flight_routines/README.md)
 

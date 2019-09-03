@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import rospy
-from flight_routines import *
+from clever_flight_routines import get_telemetry, takeoff, reach_point, land
 
 rospy.init_node('clever_flight_example')
 

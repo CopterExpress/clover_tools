@@ -3,7 +3,7 @@ import threading
 import argparse
 import rospy
 from mavros_msgs.msg import RCIn
-from flight_routines import *
+from clever_flight_routines import create_route
 
 rospy.init_node('create_route')
 
