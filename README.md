@@ -117,5 +117,4 @@ land()
 
 #### Documentation
 
-Documentation can be found [here](clever_flight_routines/README.md)
-
+Documentation can be found [here](clever_flight_routines/README.md).
