@@ -39,6 +39,25 @@ Control the drone using [interactive markers](http://wiki.ros.org/interactive_ma
 rosrun clever_tools interactive.py
 ```
 
+#### undistort_camera.py
+
+Publish undistorted image from camera topic. Use calibration from camera_info
+topic or from file if specified. Undistorted image can be viewed with web_video_server.
+
+```bash
+usage: rosrun clever_tools undistort_camera.py [-h] [-f FILE] [namespace]
+
+Publish undistorted image from camera topic. Use calibration from camera_info
+topic or from file if specified.
+
+positional arguments:
+  namespace             Namespace of camera topics, default is /main_camera
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --file FILE, -f FILE  Path to file with calibration
+```
+
 ## clever_flight_routines package
 
 ### Nodes
@@ -48,7 +67,7 @@ rosrun clever_tools interactive.py
 Create flying route by moving drone in space and recording its coordinates by triggering RC pitch stick (channel 2).
 
 ```bash
-usage: rosrun clever_tools create_route.py [-h] [-f FRAME_ID] [filename]
+usage: rosrun clever_flight_routines create_route.py [-h] [-f FRAME_ID] [filename]
 
 positional arguments:
   filename              Filename of route csv table. Default is route.csv.
@@ -65,7 +84,7 @@ optional arguments:
 Fly route from the csv table with x y z values.
 
 ```bash
-usage: rosrun clever_tools fly_route.py [-h] [-r] [-z HEIGHT] [-f FRAME_ID] [-s SPEED] [filename]
+usage: rosrun clever_flight_routines fly_route.py [-h] [-r] [-z HEIGHT] [-f FRAME_ID] [-s SPEED] [filename]
 
 positional arguments:
   filename              Filename of the route csv table
