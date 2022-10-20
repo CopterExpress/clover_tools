@@ -1,6 +1,6 @@
-# clever_tools
+# clover_tools
 
-Useful ROS nodes and stuff for CLEVER drone kit, that is not included to the [Raspberry Pi image](https://github.com/CopterExpress/clever/releases).
+Useful ROS nodes and stuff for Clover drone kit, that is not included to the [Raspberry Pi image](https://github.com/CopterExpress/clover/releases).
 
 ## Installation
 
@@ -8,7 +8,7 @@ Clone repository to the catkin workspace sources:
 
 ```bash
 cd ~/catkin_ws/src
-git clone https://github.com/CopterExpress/clever_tools.git
+git clone https://github.com/CopterExpress/clover_tools.git
 ```
 
 Execute catkin_make in catkin workspace directory and source environment setup files:
@@ -27,7 +27,7 @@ catkin_make --pkg <package_name>
 source devel/setup.bash
 ```
 
-## clever_tools package
+## clover_tools package
 
 ### Nodes
 
@@ -36,7 +36,7 @@ source devel/setup.bash
 Control the drone using [interactive markers](http://wiki.ros.org/interactive_markers) in Rviz!
 
 ```bash
-rosrun clever_tools interactive.py
+rosrun clover_tools interactive.py
 ```
 
 #### undistort_camera.py
@@ -45,7 +45,7 @@ Publish undistorted image from camera topic. Use calibration from camera_info
 topic or from file if specified. Undistorted image can be viewed with web_video_server.
 
 ```bash
-usage: rosrun clever_tools undistort_camera.py [-h] [-f FILE] [namespace]
+usage: rosrun clover_tools undistort_camera.py [-h] [-f FILE] [namespace]
 
 Publish undistorted image from camera topic. Use calibration from camera_info
 topic or from file if specified.

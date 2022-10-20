@@ -5,7 +5,7 @@ import rospy
 import tf.transformations as t
 from interactive_markers.interactive_marker_server import InteractiveMarkerServer
 from visualization_msgs.msg import Marker, InteractiveMarker, InteractiveMarkerControl, InteractiveMarkerFeedback
-from clever import srv
+from clover import srv
 
 
 def make_box(msg):

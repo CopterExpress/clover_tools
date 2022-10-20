@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(clever_tools)
+project(clover_tools)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 add_compile_options(-std=c++11)
@@ -117,7 +117,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-  LIBRARIES clever_tools
+  LIBRARIES clover_tools
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -201,7 +201,7 @@ target_link_libraries(publish_frame ${catkin_LIBRARIES})
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_clever_tools.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_clover_tools.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
