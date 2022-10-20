@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import rospy
 import cv2
 import numpy as np
@@ -53,7 +53,7 @@ def get_matrix_and_distortions_ros(camera_info_topic):
     global camera_info
     camera_info_sub = rospy.Subscriber(camera_info_topic, CameraInfo, camera_info_callback)
     while camera_info == None:
-        print "Wait for {} information".format(camera_info_topic)
+        print("Wait for {} information".format(camera_info_topic))
         rospy.sleep(0.1)
     camera_info_sub.unregister()
     mtx = camera_info.K
@@ -83,8 +83,8 @@ if __name__ == "__main__":
     else:
         matrix, distortions = get_matrix_and_distortions_ros(args.namespace+'/camera_info')
 
-    print matrix
-    print distortions
+    print(matrix)
+    print(distortions)
 
     image_sub = rospy.Subscriber(args.namespace+'/image_raw', Image, image_callback)
     image_pub = rospy.Publisher(args.namespace+'/undistorted', Image)

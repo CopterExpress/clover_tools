@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Converts mavros/imu/mag from sensor_msgs/MagneticField to geometry_msgs/TwistStamped
 # for displaying in rviz
